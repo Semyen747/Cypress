@@ -3,12 +3,8 @@ describe('login spec', () => {
     cy.visit("/")
   })
   it("Should successfully login", () => {
-   cy.visit("localhost:3000");
-   cy.contains('Log in').click();
-   cy.get("#mail").type("test@test.com");
-   cy.get("#pass").type("test");
-   cy.contains("Submit").click();
-   cy.contains("Добро пожаловать test@test.com").should("be.visible");
+    cy.login("test@test.com", "test");
+    cy.contains("Добро пожаловать test@test.com").should("be.visible");
   });
   
   it("Should not login with empty login", () => {
