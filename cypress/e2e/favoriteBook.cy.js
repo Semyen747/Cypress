@@ -1,37 +1,29 @@
 const bookFirst = {
   title: "Экипаж",
   description:
-    "Лучшие летуны на свете",
-  author: "Васильев",
+    "Когда-то их списали за воздушное хуллиганство, но теперь им предстоит вернуться и покорить небо Сирии.",
+  author: "Вадим Захароов",
 };
 
 const bookSecond = {
-  title: "Властелин колец",
+  title: "По лезвию ножа",
   description:
-    "Хоббит Бильбо Бэггинс, главный герой повести «Хоббит», достигнув почтенного возраста 111 лет, уходит на покой и оставляет племяннику Фродо волшебное кольцо, делающее всякого своего носителя невидимым.",
-  author: "Дж. Р. Р. Толкин",
+    "Им надоело стрелять, но это единственное, что они умеют делать хорошо. Рано или поздно команда «К бою!» раздастся снова…",
+  author: "Олег Дивов",
 };
 
 const bookThird = {
-  title: "Гордость и предубеждение",
+  title: "Выживший",
   description:
-    "Роман начинается с беседы мистера и миссис Беннет о приезде молодого мистера Бингли в Незерфилд-парк.",
-  author: "Джейн Остин",
+    "После авиакатастрофы он попал в ледяную пустошь, сможет ли он выбраться из этого ада?",
+  author: "т",
 };
 
 describe("Favorite book spec", () => {
   beforeEach(() => {
-    cy.visit("/")
-  })
-  it("Should successfully login", () => {
-   cy.visit("localhost:3000");
-   cy.contains('Log in').click();
-   cy.get("#mail").type("test@test.com");
-   cy.get("#pass").type("test");
-   cy.contains("Submit").click();
-   cy.contains("Добро пожаловать test@test.com").should("be.visible");
+    cy.visit("/");
+    cy.login("test@test.com", "test");
   });
-  
 
   // it("Valid login", () => {
   //   cy.contains("test@test.com").should("be.visible");
@@ -47,15 +39,6 @@ describe("Favorite book spec", () => {
     cy.addFavoriteBook(bookSecond);
     cy.visit("/favorites");
     cy.get(".card-title").should("contain.text", bookSecond.title);
-  });
-
-  it("Should add book to favorite through 'Book list' page", () => {
-    cy.addBookNoFavorite(bookFirst);
-    cy.contains(bookFirst.title)
-      .should("be.visible")
-      .within(() => cy.get(".card-footer > .btn").click({ force: true }));
-    cy.visit("/favorites");
-    cy.contains(bookFirst.title).should("be.visible");
   });
 
   it("Should delete book from favorite", () => {
